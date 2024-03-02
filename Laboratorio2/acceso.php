@@ -11,10 +11,29 @@ if (isset($_SESSION['usuario'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validar datos del formulario
     $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
-    $clave = filter_input(INPUT_POST, 'clave', FILTER_SANITIZE_STRING);
+    $contraseña = filter_input(INPUT_POST, 'contraseña', FILTER_SANITIZE_STRING);
 
-    if (!empty($usuario) && !empty($clave)) {
-        if (authenticate($usuario, $clave)) {
+    // Conectar a la base de datos
+    $dbuser = "root";
+    $dbpassword = "";
+    //include "/opt/lampp/htdocs/Laboratorios/Laboratorio2/config.php";
+
+    $conn = new PDO("mysql:host=localhost;dbname=umanizales", $dbuser, $dbpassword);
+
+    // Consultar la base de datos para verificar las credenciales del usuario
+    $query = "SELECT * FROM usuario WHERE usuario = :usuario";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':usuario', $usuario);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        // Verificar la contraseña con el valor de sal
+        $stored_password = $user['contraseña'];
+        $stored_salt = $user['salt'];
+        $hashed_password = hash('sha256', $contraseña . $stored_salt);
+
+        if ($hashed_password === $stored_password) {
             $_SESSION['usuario'] = $usuario;
             header("Location: CRUD.php");
             exit;
@@ -22,19 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $error_message = "Credenciales incorrectas";
         }
     } else {
-        $error_message = "Por favor, ingrese usuario y contraseña";
+        $error_message = "Credenciales incorrectas";
     }
 }
 
-// Función de autenticación simulada
-function authenticate($usuario, $clave) {
-    // Simulación de una consulta a la base de datos para verificar las credenciales
-    $usuarios = array(
-        "jisus" => "1q2w3e4r5t"
-    );
-
-    return isset($usuarios[$usuario]) && $usuarios[$usuario] === $clave;
-}
 ?>
 
 <!DOCTYPE html>
@@ -98,24 +108,19 @@ function authenticate($usuario, $clave) {
 </head>
 <body>
     <div class="container">
-        <h1>Login de Usuario</h1>
+        <h1>Iniciar Sesión</h1>
         <?php if(isset($error_message)) echo "<p class='error-message'>$error_message</p>"; ?>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <label for="usuario">Usuario:</label>
             <input type="text" id="usuario" name="usuario" required><br>
-            <label for="clave">Contraseña:</label>
-            <input type="password" id="clave" name="clave" required><br>
-            <label for="nacimiento">Fecha de Nacimiento:</label>
-            <input type="date" id="nacimiento" name="nacimiento"><br>
-            <label>Género:</label>
-            <input type="radio" id="masculino" name="genero" value="masculino">
-            <label for="masculino">Masculino</label>
-            <input type="radio" id="femenino" name="genero" value="femenino">
-            <label for="femenino">Femenino</label><br>
-            <input type="radio" id="otro" name="genero" value="otro">
-            <label for="otro">Otro / Prefiero no decirlo</label><br>
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" id="contraseña" name="contraseña" required><br>
             <input type="submit" value="Login">
         </form>
+        <a href="registro.php" class="link-button">Registrarse</a>
+        <a href="contacto.php" class="link-button">Contacto</a>
     </div>
 </body>
 </html>
+
+

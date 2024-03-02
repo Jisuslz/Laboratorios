@@ -7,6 +7,14 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
+// Si se ha enviado el formulario de salida, destruir la sesión y redirigir al usuario a la página de acceso
+if (isset($_POST['logout'])) {
+    session_unset();
+    session_destroy();
+    header("Location: acceso.php");
+    exit;
+}
+
 $usuario = htmlspecialchars($_SESSION['usuario']); // Sanitizar el nombre de usuario
 $fechaNacimiento = isset($_SESSION['fecha_nacimiento']) ? $_SESSION['fecha_nacimiento'] : 'No especificada';
 $genero = isset($_SESSION['genero']) ? $_SESSION['genero'] : 'No especificado';
@@ -55,6 +63,11 @@ $genero = isset($_SESSION['genero']) ? $_SESSION['genero'] : 'No especificado';
             <p>Fecha de Nacimiento: <?php echo $fechaNacimiento; ?></p>
             <p>Género: <?php echo $genero; ?></p>
         </div>
+        <!-- Formulario para salir -->
+        <form method="post">
+            <input type="submit" name="logout" value="Salir">
+        </form>
     </div>
 </body>
 </html>
+

@@ -1,5 +1,20 @@
 Enlace repositorio profesor: [enlace](https://github.com/joseucarvajal/2024_01_sgd_dllo_sftw/tree/main/tareas/corte-1)
 
+### Mejora al codigo
+
+- codificar la URL 
+- encriptar la contraseña en la base de datos
+- requisitos para crear una contraseña segura
+   Al menos 8 caracteres de longitud.
+   Al menos una mayúscula.
+   Al menos una minúscula.
+   Al menos un carácter especial.
+- reCAPTCHA
+- Número de intentos permitidos
+-
+
+
+
 Fecha de entrega: 7 de marzo
 Modelo de calificacion: trabajo:35%, sustentacion: 65%;
 Fecha de sustentacion: 15 de marzo.
