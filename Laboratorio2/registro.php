@@ -31,11 +31,21 @@ if (
         $contraseñaCifrada = hash('sha256', $contraseñaConSalt);
 
         // Conexión a la base de datos
-        $dbuser = "root";
-        $dbpassword = "";
-        //include "/opt/lampp/htdocs/Laboratorios/Laboratorio2/config.php";
 
-        $conn = new PDO("mysql:host=localhost;dbname=umanizales", $dbuser, $dbpassword);
+        include "config.php";
+
+        try {
+            // Establece la conexión a la base de datos
+            $conn = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpassword);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+            // Realiza operaciones con la base de datos...
+        
+        } catch(PDOException $e) {
+            // Manejo de errores
+            echo "Error de conexión: " . $e->getMessage();
+        }
+
 
         // Consulta preparada para insertar el usuario con la contraseña cifrada y el salt
         $query = "INSERT INTO `usuario` (`id`, `nombre`, `documento`, `usuario`, `contraseña`, `salt`) VALUES (NULL, ?, ?, ?, ?, ?)";

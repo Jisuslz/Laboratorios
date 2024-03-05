@@ -12,8 +12,13 @@ Enlace repositorio profesor: [enlace](https://github.com/joseucarvajal/2024_01_s
 - reCAPTCHA
 - numero de intentos cloque el usuario un tiempo predeterminado
 - limpiar memoria 
-- Segregar permisos para ingresar a la base de datos 'config'
+   Utilizar variables de entorno: En entornos de producción, puedes almacenar las credenciales como variables de entorno en lugar de codificarlas directamente en el código fuente.
+
+   Utilizar sistemas de gestión de secretos: Considera utilizar herramientas diseñadas para gestionar secretos de manera segura, como HashiCorp Vault o AWS Secrets Manager.
+- Segregar permisos para ingresar a la base de datos 'config.php'
+- Cambiar y deshabilitar cuentas predeterminadas
 - codificar la URL 
+
 
 
 

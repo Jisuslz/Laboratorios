@@ -91,4 +91,4 @@ function authenticate($usuario, $clave) {
 
 ```
 
-![alt text](image-1.png)
+![alt text](Anexos/image-1.png)

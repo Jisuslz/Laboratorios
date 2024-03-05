@@ -7,11 +7,9 @@ if (isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['telefono'
     $telefono = $_POST['telefono'];
     $mensaje = $_POST['mensaje'];
 
-    // Configura la conexión a la base de datos
-    $dbhost = "localhost";
-    $dbuser = "root";
-    $dbpassword = "";
-    $dbname = "umanizales";
+    // Conexión a la base de datos
+
+    include "config.php";
 
     try {
         // Conexión a la base de datos

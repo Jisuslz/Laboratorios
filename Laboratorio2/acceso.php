@@ -8,12 +8,10 @@ if (isset($_SESSION['usuario'])) {
 }
 
 // Conectar a la base de datos
-$dbuser = "root";
-$dbpassword = "";
-$dbname = "umanizales";
+include "config.php";
 
 try {
-    $conn = new PDO("mysql:host=localhost;dbname=$dbname", $dbuser, $dbpassword);
+    $conn = new PDO("mysql:host=127.0.0.1:3306;dbname=$dbname", $dbuser, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Procesar el formulario cuando se envía
