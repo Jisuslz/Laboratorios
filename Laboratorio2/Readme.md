@@ -10,7 +10,7 @@ Enlace repositorio profesor: [enlace](https://github.com/joseucarvajal/2024_01_s
    Al menos una minúscula.
    Al menos un carácter especial.
 - reCAPTCHA
-- numero de intentos cloque el usuario un tiempo predeterminado
+- numero de intentos bloque el usuario un tiempo predeterminado
 - limpiar memoria 
    Utilizar variables de entorno: En entornos de producción, puedes almacenar las credenciales como variables de entorno en lugar de codificarlas directamente en el código fuente.
 
@@ -18,8 +18,6 @@ Enlace repositorio profesor: [enlace](https://github.com/joseucarvajal/2024_01_s
 - Segregar permisos para ingresar a la base de datos 'config.php'
 - Cambiar y deshabilitar cuentas predeterminadas
 - codificar la URL 
-
-
 
 
 Fecha de entrega: 7 de marzo
