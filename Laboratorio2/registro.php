@@ -43,9 +43,9 @@ if (
         $result = $q->execute([$nombre, $documento, $usuario, $contraseñaCifrada, $salt]);
 
         if ($result) {
-            echo "Usuario registrado correctamente.";
+            $error_message = "Usuario registrado correctamente.";
         } else {
-            echo "Error al registrar el usuario.";
+            $error_message =  "Error al registrar el usuario.";
         }
     }
 }
@@ -59,15 +59,27 @@ if (
     <title>Creación de cuenta</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-image: url('Anexos/fondoUM.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh; /* Altura del viewport */
+            margin: 0; /* Elimina el margen predeterminado */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form {
+            background-color: rgba(5, 5, 5, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
         }
         .container {
             width: 400px;
             margin: 0 auto;
             margin-top: 50px;
             padding: 20px;
-            background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -116,8 +128,8 @@ if (
 </head>
 <body>
     <div class="container">
-        <h1>Creación de cuenta</h1>
         <form action="" method="post">
+        <h1>Creación de cuenta</h1>
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required><br>
             <label for="documento">Documento:</label>
@@ -128,8 +140,8 @@ if (
             <input type="password" id="contraseña" name="contraseña" required><br>
             <?php if(!empty($error_message)) echo "<p class='error-message'>$error_message</p>"; ?> <!-- Mostramos el mensaje de error si existe -->
             <input type="submit" value="Registrarme">
+            <a href="<?php echo urlencode('acceso.php'); ?>" class="back-link">Volver a la página de acceso</a>
         </form>
-        <a href="<?php echo urlencode('acceso.php'); ?>" class="back-link">Volver a la página de acceso</a>
     </div>
 </body>
 </html>

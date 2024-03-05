@@ -11,8 +11,31 @@ CREATE TABLE usuario (
 ```
 # Imagen
 
-![alt text](image.png)
+![alt text](Anexos/image.png)
 
 Protegiendo el archivo `config.php` 
 
 `chmod 600 /ruta/a/tu/config.php`
+
+
+tabla `mensaje de usuarios`
+```
+CREATE TABLE mensajes_contacto (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255),
+    email VARCHAR(255),
+    telefono VARCHAR(15),
+    mensaje TEXT,
+    fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+```
+agregamos a la base de datos las siguientes columnas 'intentos_fallidos' y 'tiempo_bloqueo'
+
+```
+ALTER TABLE usuario ADD COLUMN intentos_fallidos INT DEFAULT 0;
+ALTER TABLE usuario ADD COLUMN tiempo_bloqueo DATETIME;
+
+```
+
+![alt text](Anexos/time.png)

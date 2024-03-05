@@ -2,16 +2,18 @@ Enlace repositorio profesor: [enlace](https://github.com/joseucarvajal/2024_01_s
 
 ### Mejora al codigo
 
-- codificar la URL 
-- encriptar la contraseña en la base de datos
+
+- encriptar la contraseña en la base de datos 
 - requisitos para crear una contraseña segura
    Al menos 8 caracteres de longitud.
    Al menos una mayúscula.
    Al menos una minúscula.
    Al menos un carácter especial.
 - reCAPTCHA
-- Número de intentos permitidos
--
+- numero de intentos cloque el usuario un tiempo predeterminado
+- limpiar memoria 
+- Segregar permisos para ingresar a la base de datos 'config'
+- codificar la URL 
 
 
 
