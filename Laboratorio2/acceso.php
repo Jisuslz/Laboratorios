@@ -33,7 +33,7 @@ try {
                 $current_time = time();
                 $lockout_time = strtotime($user['tiempo_bloqueo']);
                 if ($current_time < $lockout_time) {
-                    $error_message = "El usuario está bloqueado. Por favor, inténtelo más tarde.";
+                    $error_message = "Ocurrió un error durante el proceso. Por favor, inténtalo más tarde.";
                 } else {
                     // Reiniciar los intentos fallidos
                     $query = "UPDATE usuario SET intentos_fallidos = 0, tiempo_bloqueo = NULL WHERE usuario = :usuario";

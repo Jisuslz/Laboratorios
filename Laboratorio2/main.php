@@ -3,7 +3,7 @@ session_start();
 
 // Redirigir al usuario a la página de inicio de sesión si no está autenticado
 if (!isset($_SESSION['usuario'])) {
-    header("Location: index.php");
+    header("Location: acceso.php");
     exit;
 }
 
@@ -18,12 +18,10 @@ if (isset($_POST['logout'])) {
 $usuario = htmlspecialchars($_SESSION['usuario']); // Sanitizar el nombre de usuario
 
 // Conectar con la base de datos
-$dbuser = "root";
-$dbpassword = "";
-$dbname = "umanizales";
+include "config.php";
 
 try {
-    $conn = new PDO("mysql:host=localhost;dbname=$dbname", $dbuser, $dbpassword);
+    $conn = new PDO("mysql:host=127.0.0.1:3306;dbname=$dbname", $dbuser, $dbpassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Consulta para obtener el nombre y el documento del usuario
@@ -51,7 +49,7 @@ $conn = null;
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
