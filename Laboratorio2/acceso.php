@@ -89,9 +89,17 @@ try {
         }
     }
 } catch(PDOException $e) {
-    echo "Error de conexión: " . $e->getMessage();
+    // Registra el error en un registro interno y muestra un mensaje genérico al usuario
+    error_log("Error de conexión: " . $e->getMessage());
+    $error_message = "Ocurrió un error durante el proceso. Por favor, inténtalo más tarde.";
 }
 
+// Cierra la conexión a la base de datos
+$conn = null;
+
+// Limpia las variables de memoria
+unset($usuario);
+unset($contraseña);
 ?>
 
 <!DOCTYPE html>

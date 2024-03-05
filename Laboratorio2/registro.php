@@ -7,10 +7,11 @@ if (
     && isset($_POST["usuario"])
     && isset($_POST["contraseña"])
 ) {
-    $nombre = $_POST["nombre"];
-    $documento = $_POST["documento"];
-    $usuario = $_POST["usuario"];
-    $contraseña = $_POST["contraseña"];
+    // Sanitizar los datos recibidos del formulario
+    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
+    $documento = filter_input(INPUT_POST, 'documento', FILTER_SANITIZE_STRING);
+    $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
+    $contraseña = filter_input(INPUT_POST, 'contraseña', FILTER_SANITIZE_STRING);
 
     // Validar la contraseña
     if (
@@ -39,27 +40,34 @@ if (
             $conn = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpassword);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-            // Realiza operaciones con la base de datos...
-        
+            // Consulta preparada para insertar el usuario con la contraseña cifrada y el salt
+            $query = "INSERT INTO `usuario` (`id`, `nombre`, `documento`, `usuario`, `contraseña`, `salt`) VALUES (NULL, ?, ?, ?, ?, ?)";
+            $statement = $conn->prepare($query);
+            $result = $statement->execute([$nombre, $documento, $usuario, $contraseñaCifrada, $salt]);
+
+            if ($result) {
+                $error_message = "Usuario registrado correctamente.";
+            } else {
+                $error_message =  "Error al registrar el usuario.";
+            }
         } catch(PDOException $e) {
             // Manejo de errores
-            echo "Error de conexión: " . $e->getMessage();
+            error_log("Error de conexión: " . $e->getMessage());
+            $error_message = "Ocurrió un error al registrar el usuario. Por favor, inténtalo más tarde.";
         }
 
-
-        // Consulta preparada para insertar el usuario con la contraseña cifrada y el salt
-        $query = "INSERT INTO `usuario` (`id`, `nombre`, `documento`, `usuario`, `contraseña`, `salt`) VALUES (NULL, ?, ?, ?, ?, ?)";
-        $q = $conn->prepare($query);
-        $result = $q->execute([$nombre, $documento, $usuario, $contraseñaCifrada, $salt]);
-
-        if ($result) {
-            $error_message = "Usuario registrado correctamente.";
-        } else {
-            $error_message =  "Error al registrar el usuario.";
-        }
+        // Cierra la conexión a la base de datos
+        $conn = null;
     }
 }
+
+// Limpia las variables de memoria
+unset($nombre);
+unset($documento);
+unset($usuario);
+unset($contraseña);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -148,7 +156,7 @@ if (
             <input type="text" id="usuario" name="usuario" required><br>
             <label for="contraseña">Contraseña:</label>
             <input type="password" id="contraseña" name="contraseña" required><br>
-            <?php if(!empty($error_message)) echo "<p class='error-message'>$error_message</p>"; ?> <!-- Mostramos el mensaje de error si existe -->
+            <?php if(!empty($error_message)) echo "<p class='error-message'>$error_message</p>"; ?> 
             <input type="submit" value="Registrarme">
             <a href="<?php echo urlencode('acceso.php'); ?>" class="back-link">Volver a la página de acceso</a>
         </form>

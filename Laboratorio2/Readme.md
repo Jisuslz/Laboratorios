@@ -74,3 +74,30 @@ Se deben crear al menos 3 formularios y se debe incluir un formulario de 'Regist
 10. **Limpiar variables de memoria para evitar fugas de información**:
     
     - Las variables que están en memoria se deben limpiar para evitar que los sniffers o memory dumps puedan acceder a información sensible que se encuentre en ellas. Esto ayuda a proteger los datos mientras están en tránsito o en uso en la memoria del sistema.
+
+
+
+    Descripción general
+
+consultas preparadas de PDO, lo cual es una buena práctica para prevenir ataques de inyección SQL. 
+
+- Contraseñas almacenadas en texto plano: El código almacena las contraseñas en texto plano en la base de datos. Es altamente recomendable almacenar las contraseñas de manera segura utilizando funciones de hash criptográfico, como bcrypt. Almacenar las contraseñas en texto plano puede exponer la seguridad de tu sistema en caso de una violación de datos.
+
+- Validación de datos del formulario: Si bien el código filtra y sanitiza los datos del formulario utilizando FILTER_SANITIZE_STRING, esto puede no ser suficiente para prevenir todas las formas de ataques de inyección SQL. Es recomendable utilizar consultas preparadas para todas las consultas que involucren datos proporcionados por el usuario.
+
+- Manejo de errores: El código maneja excepciones de PDO, lo cual es importante para la seguridad y la integridad de tu aplicación. Sin embargo, en caso de errores de conexión, el código solo muestra el mensaje de error directamente en la página. Esto podría exponer información sensible sobre la estructura de tu base de datos y otros detalles del sistema. Es preferible mostrar un mensaje genérico al usuario y registrar los detalles del error en un registro interno para su revisión.
+
+- Bloqueo de cuentas: El código implementa un mecanismo de bloqueo de cuentas después de un cierto número de intentos fallidos de inicio de sesión. Esto es una buena práctica de seguridad, pero debes asegurarte de que el bloqueo de cuentas no sea susceptible a ataques de denegación de servicio, como la cuenta de bloqueo de bruteforce. Podrías considerar implementar un mecanismo de bloqueo temporal con reinicio, donde las cuentas bloqueadas se desbloquean automáticamente después de un período de tiempo.
+
+
+## Codigo Acceso.php
+
+- Se manejan los errores de conexión de manera más segura, registrándolos en un registro interno y mostrando un mensaje genérico al usuario.
+- Se utilizan funciones unset() para limpiar las variables de memoria $usuario y $contraseña. Esto ayuda a liberar la memoria utilizada por estas variables después de su uso.
+
+## Codigo contacto.php
+
+- Se utilizan las funciones filter_input() y FILTER_SANITIZE_* para sanitizar los datos recibidos del formulario y evitar posibles ataques de inyección de código.
+- Se manejan los errores de conexión de manera más segura, registrándolos en un registro interno y mostrando un mensaje genérico al usuario.
+- Se utilizan funciones unset() para limpiar las variables de memoria $nombre, $email, $telefono y $mensaje después de su uso.
+
