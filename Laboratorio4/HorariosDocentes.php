@@ -65,10 +65,9 @@
             $codigo = $_GET["codigo"];
             echo "Búsqueda por código de asignatura: $codigo";
 
-            // Preparar y ejecutar la consulta
-            $consultaSQL = $conn->prepare("SELECT * FROM docentes WHERE codigo = :codigo");
-            $consultaSQL->bindParam(':codigo', $codigo);
-            $consultaSQL->execute();
+            // Ejecutar consulta sin preparar (vulnerable a inyección SQL)
+            $consultaSQL = "SELECT * FROM docentes WHERE codigo = '$codigo'";
+            $consultaSQL = $conn->query($consultaSQL);
         ?>
         <h2>Resultados de la búsqueda</h2>
         <table border="1">
@@ -110,4 +109,5 @@
     </form>
 </body>
 </html>
+
 

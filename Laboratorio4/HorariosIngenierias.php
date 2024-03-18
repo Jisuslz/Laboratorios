@@ -70,10 +70,9 @@
         $dia = $_GET["dia"];
         echo "Búsqueda por día: $dia";
 
-        // Preparar y ejecutar la consulta
-        $consultaSQL = $conn->prepare("SELECT * FROM horarios WHERE dia_semana = :dia");
-        $consultaSQL->bindParam(':dia', $dia);
-        $consultaSQL->execute();
+        // Ejecutar consulta sin preparar (vulnerable a inyección SQL)
+        $consultaSQL = "SELECT * FROM horarios WHERE dia_semana = '$dia'";
+        $consultaSQL = $conn->query($consultaSQL);
     ?>
     <h2>Resultados de la búsqueda</h2>
     <table border="1">

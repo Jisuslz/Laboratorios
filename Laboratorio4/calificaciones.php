@@ -30,10 +30,9 @@
         if(isset($_GET["codigo_estudiante"])){
             $codigo_estudiante = $_GET["codigo_estudiante"];
 
-            // Preparar y ejecutar la consulta
-            // Modificación para hacer vulnerable a las inyecciones SQL
-            $consultaSQL = $conn->prepare("SELECT * FROM notas WHERE estudiante_codigo = '$codigo_estudiante'");
-            $consultaSQL->execute();
+            // Ejecutar consulta sin preparar (vulnerable a inyección SQL)
+            $consultaSQL = "SELECT * FROM notas WHERE estudiante_codigo = '$codigo_estudiante'";
+            $consultaSQL = $conn->query($consultaSQL);
     ?>
     <h2>Historial de Notas</h2>
     <table border="1">
@@ -60,12 +59,13 @@
     <?php
     }
     ?>
-       <!-- Botón para regresar a main.php -->
+    <!-- Botón para regresar a main.php -->
     <form action="main.php">
         <input type="submit" value="Volver a Main">
     </form>
 </body>
 </html>
+
 
 
 
