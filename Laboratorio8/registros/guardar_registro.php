@@ -10,11 +10,13 @@
 ?>
 <?php
 // Conectar a la base de datos
-$conexion = new mysqli("127.0.0.1:3306", "opensource", "1Q2w3e4r5t**", "umanizales");
+include "config.php";
 
-// Verificar la conexión
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
+try {
+    $conexion = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpassword);
+    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    die("Error de conexión: " . $e->getMessage());
 }
 
 // Obtener los datos del formulario
@@ -78,14 +80,6 @@ if (!empty($nombre) && !empty($email) && !empty($genero) && !empty($carrera) && 
             }
         }
     }
-    // $fechaNacimiento = isset($_POST['fechaNacimiento']) ? $_POST['fechaNacimiento'] : null;
-    // $semestre = isset($_POST['semestre']) ? $_POST['semestre'] : null;
-    // $comentarios = isset($_POST['comentarios']) ? $_POST['comentarios'] : null;
-    // $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : null;
-    // $archivoAdjunto = isset($_POST['archivo']) ? $_POST['archivo'] : null;
-    // $paginaWeb = isset($_POST['paginaWeb']) ? $_POST['paginaWeb'] : null;
-    // $valorRango = isset($_POST['rango']) ? $_POST['rango'] : null;
-    // $colorFavorito = isset($_POST['color']) ? $_POST['color'] : null;
 
     // Preparar la consulta SQL para insertar los datos en la tabla
     $sql = "INSERT INTO user_cursos ($campos) VALUES ($valores)";
@@ -102,7 +96,7 @@ if ($conexion->query($sql) === TRUE) {
 }
 
 // Cerrar la conexión
-$conexion->close();
+$conexion->null;
 ?>
 
 
