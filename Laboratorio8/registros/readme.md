@@ -111,3 +111,29 @@ Para validar el campo de carrera utilizando `innerHTML`, primero necesitas un el
 ```
 
 Con este código, se mostrará un mensaje de error si no se ha seleccionado una carrera. Si se ha seleccionado una carrera, el mensaje de error se limpiará. Puedes seguir un enfoque similar para validar otros campos del formulario.
+
+# base de datos 
+
+```
+CREATE TABLE user_cursos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE,
+    genero CHAR(1) NOT NULL,
+    carrera VARCHAR(100) NOT NULL,
+    semestre INT,
+    password VARCHAR(100) NOT NULL,
+    acepto_terminos BOOLEAN NOT NULL,
+    comentarios TEXT,
+    telefono VARCHAR(20),
+    archivo_adjunto VARCHAR(255),
+    pagina_web VARCHAR(255),
+    valor_rango INT,
+    color_favorito VARCHAR(20),
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+
+

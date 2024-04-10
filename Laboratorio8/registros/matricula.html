@@ -65,13 +65,32 @@
         button:hover {
             background-color: #45a049;
         }
+        h1 {
+            /*position: absolute;
+            top: 0;
+            left: 0;*/
+            animation: changeColor 15s linear infinite; 
+            
+        }
+
+        @keyframes changeColor {
+            0% { color: red; }
+            25% { color: red; } /* Mantiene el color rojo durante el 25% de la animación */
+            50% { color: blue; }
+            75% { color: blue; } /* Mantiene el color azul durante el 25% de la animación */
+            100% { color: green; }
+        }
     </style>
 </head>
 <body>
+    <div>
     <h1>¡Inscríbete Ahora!: Curso de infosec </h1>
+    </div>
+    <div>
     <h1>Completa el formulario</h1>
+    </div>
     <div id="image-container">
-        <img src="descarga.jpeg" alt="Logo de la universidad" id="logo"> 
+        <img src="university.gif" alt="Logo de la universidad" id="logo"> 
     </div>
     <!-- Formulario de Registro -->
     <form id="registroForm" action="#" method="post">
@@ -84,17 +103,17 @@
         <label for="fechaNacimiento">Fecha de Nacimiento:</label>
         <input type="date" name="fechaNacimiento" id="fechaNacimiento" required><br>
         <label>Género*:</label><br>
-        <input type="radio" name="genero" value="f" required> Femenino
-        <input type="radio" name="genero" value="m"> Masculino
+        <input type="radio" name="genero" value="f" id="generoF" required> Femenino &#x1F469;
+        <input type="radio" name="genero" value="m" id="generoM"> Masculino &#x1F468;
         <div class="error" id="generoError"></div>
         <label for="carrera">Carrera*:</label>
         <div class="error" id="carreraError"></div>
         <select name="carrera" id="carrera" required>
             <option value="">Seleccione una carrera</option>
-            <option value="ingenieria">Ingeniería</option>
-            <option value="medicina">Medicina</option>
-            <option value="derecho">Derecho</option>
-            <option value="administracion">Administración</option>
+            <option value="ingenieria">Ingeniería &#x1F527;</option> <!-- Icono de ingeniería -->
+            <option value="medicina">Medicina &#x1F489;</option> <!-- Icono de medicina -->
+            <option value="derecho">Derecho &#x1F4D4;</option> <!-- Icono de derecho -->
+            <option value="administracion">Administración &#x1F4BC;</option> <!-- Icono de administración -->
         </select><br>
         <label for="semestre">Semestre:</label>
         <input type="number" name="semestre" id="semestre" min="1"><br>
@@ -137,6 +156,7 @@
     <script>
         // Función para validar y procesar el formulario de registro
         function registrarse() {
+            var valido = true
             // Obtener los valores de los campos del formulario
             var nombre = document.getElementById('nombre').value;
             var email = document.getElementById('email').value;
@@ -157,8 +177,8 @@
             // Validar si el campo de nombre está vacío
             if (!nombre) {
                 // Mostrar un mensaje de error si el campo está vacío
+                valido = false
                 nombreError.innerHTML = 'Por favor, ingrese su nombre.';
-                return;
             } else {
                 // Limpiar el mensaje de error si el campo no está vacío
                 nombreError.innerHTML = '';
@@ -170,16 +190,16 @@
             // Validar si se ingresó un correo electrónico
             if (!email) {
                 // Mostrar un mensaje de error si no se ingresó ningún correo electrónico
+                valido = false
                 emailError.innerHTML = 'Por favor, ingrese su correo electrónico.';
-                return;
             }
 
             // Validar el formato del correo electrónico utilizando una expresión regular
             var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(email)) {
                 // Mostrar un mensaje de error si el formato del correo electrónico es inválido
+                valido = false
                 emailError.innerHTML = 'Por favor, ingrese un correo electrónico válido.';
-                return;
             } else {
                 // Limpiar el mensaje de error si el correo electrónico es válido
                 emailError.innerHTML = '';
@@ -189,8 +209,8 @@
             // Validar Género
             var generoError = document.getElementById('generoError');
             if (!genero) {
+                valido = false
                 generoError.innerHTML = 'Por favor seleccione su género.';
-                return;
             } else {
                 generoError.innerHTML = '';
             }
@@ -201,8 +221,8 @@
             // Validar si se ha seleccionado una carrera
             if (!carrera || carrera === '') {
                 // Mostrar un mensaje de error si no se ha seleccionado una carrera
+                valido = false
                 carreraError.innerHTML = 'Por favor, seleccione una carrera.';
-                return;
             } else {
                 // Limpiar el mensaje de error si se ha seleccionado una carrera
                 carreraError.innerHTML = '';
@@ -212,8 +232,8 @@
             // Validar Aceptación de Términos
             var terminosError = document.getElementById('terminosError');
             if (!aceptoTerminos) {
+                valido = false
                 terminosError.innerHTML = 'Debe aceptar los términos y condiciones.';
-                return;
             } else {
                 terminosError.innerHTML = '';
             }
@@ -223,46 +243,57 @@
             var passwordError = document.getElementById('passwordError');
             var passwordConfirmationError = document.getElementById('passwordConfirmationError');
 
-            // Validar si las contraseñas coinciden
-            if (password !== passwordConfirmation) {
-                // Mostrar un mensaje de error si las contraseñas no coinciden
-                passwordError.innerHTML = 'Las contraseñas no coinciden.';
-                passwordConfirmationError.innerHTML = 'Las contraseñas no coinciden.';
-                document.getElementById('botonRegistro').disabled = true; // Deshabilitar el botón de registro
-            } else {
-                // Limpiar el mensaje de error si las contraseñas coinciden
-                passwordError.innerHTML = '';
-                passwordConfirmationError.innerHTML = '';
-                document.getElementById('botonRegistro').disabled = false; // Habilitar el botón de registro
+            if (password !== passwordConfirmation || password === '') {
+                valido = false
+                passwordError.innerHTML = 'Las contraseñas no coinciden o están vacías.';
+                passwordConfirmationError.innerHTML = 'Las contraseñas no coinciden o están vacías.';
             }
 
-                    // Verificar si las contraseñas coinciden y no están vacías
-            if (password === passwordConfirmation && password !== '') {
-                // Habilitar el botón de registro si las contraseñas coinciden y están llenas
-                document.getElementById('Registrarse').disabled = false;
-                document.getElementById('passwordError').innerHTML = ''; // Limpiar el mensaje de error
-            } else {
+            if (!valido) return;
 
-                alert('El botón de registro se ha deshabilitado debido a que las contraseñas están vacías. Por favor, vuelva a recargar el formulario.');
-                // Deshabilitar el botón de registro si las contraseñas no coinciden o están vacías
-                
-                document.getElementById('passwordError').innerHTML = 'Las contraseñas no coinciden o están vacías.';
-                document.getElementById('Registrarse').disabled = true;
-                // Mostrar un mensaje de aviso al usuario
-    
+           // Obtener los datos del formulario
+            var formData = new FormData(document.getElementById("registroForm"));
+            var xhr = new XMLHttpRequest();
+
+            // Verificar si hay datos en el formulario antes de enviarlo
+            if (!formData.has('nombre') || !formData.has('email') || !formData.has('genero') || !formData.has('carrera') || !formData.has('password') || !formData.has('aceptoTerminosYCondiciones')) {
+                alert("Por favor, complete todos los campos obligatorios.");
+                return; // Detener el proceso si el formulario está incompleto
             }
 
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    console.log(xhr.status)
+                    if (xhr.status === 200) {
+                        // Éxito: Mostrar mensaje de confirmación u otra acción
+                        alert("Registro exitoso. Se ha enviado un correo electrónico de confirmación.");
+                        // Si todos los datos son correctos, mostrar mensaje de bienvenida
+                        document.getElementById('registroForm').style.display = 'none';
+                        document.getElementById('bienvenida').style.display = 'block';
+                        // Ocultar la imagen de descarga.jpeg en la plantilla de registro
+                        document.getElementById('logo').style.display = 'none';
 
-            // Si todos los datos son correctos, mostrar mensaje de bienvenida
-            document.getElementById('registroForm').style.display = 'none';
-            document.getElementById('bienvenida').style.display = 'block';
-            // Ocultar la imagen de descarga.jpeg en la plantilla de registro
-            document.getElementById('logo').style.display = 'none';
+                        // Si todos los datos son correctos, mostrar mensaje de bienvenida
+                        document.getElementById('registroForm').style.display = 'none';
+                        document.getElementById('bienvenida').style.display = 'block';
+                        // Ocultar la imagen de descarga.jpeg en la plantilla de registro
+                        document.getElementById('logo').style.display = 'none';
 
-            // Envío de correo electrónico de confirmación (simulado)
-            setTimeout(function() {
-                alert('Se ha enviado un correo electrónico de confirmación a ' + email);
-            }, 2000); // Simular un retraso de 2 segundos
+                        // Envío de correo electrónico de confirmación (simulado)
+                        setTimeout(function() {
+                            alert('Se ha enviado un correo electrónico de confirmación a ' + email);
+                        }, 2000); // Simular un retraso de 2 segundos
+                    } else {
+                        // Error: Mostrar mensaje de error u otra acción
+                        alert("Hubo un error al procesar el registro. Inténtalo de nuevo más tarde o verifique que haya iniciado sesión");
+                    }
+                }
+            };
+
+            xhr.open("POST", "guardar_registro.php", true);
+            xhr.send(formData);
+
+            
         }
     </script>
 </body>
@@ -270,3 +301,4 @@
     <input type="submit" value="Volver a Main">
 </form>
 </html>
+
