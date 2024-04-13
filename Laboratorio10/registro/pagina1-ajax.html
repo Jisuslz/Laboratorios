@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>pagina   1</title>
+    </head>
+    <body>
+        Pagina 1
+        <div>
+            Numero de contador <input type="text" id="contador-1">
+            <button onclick="enviarContador('contador-1');">Procesar</button>
+        </div>
+        <div>
+            Numero de contador <input type="text" id="contador-2">
+            <button onclick="enviarContador('contador-2');">Procesar</button>
+        </div>
+        <div>
+            Numero de contador <input type="text" id="contador-3">
+            <button onclick="enviarContador('contador-3');">Procesar</button>
+        </div>
+        <div>
+            Numero de contador <input type="text" id="contador-4">
+            <button onclick="enviarContador('contador-4');">Procesar</button>
+        </div>
+        <div>
+            Numero de contador <input type="text" id="contador-5">
+            <button onclick="enviarContador('contador-5');">Procesar</button>
+        </div>
+        <div id="div-respuestas">
+
+        </div>
+
+        <script type="text/JavaScript">
+            function enviarContador(idContador){
+                const mensajero = new XMLHttpRequest();
+                const divRepuestas = document.getElementById('div-respuestas');
+                mensajero.onreadystatechange = function(){
+                    if(mensajero.readyState == 4 && mensajero.status == 200){
+                        divRepuestas.innerHTML = divRepuestas.innerHTML + mensajero.responseText;
+                    }
+                }
+
+                const inputElement = document.getElementById(idContador);
+
+                mensajero.open(`GET`, `procesador-contador.php?numeroContador=${inputElement.value}`);
+                mensajero.send();
+            }
+        </script>
+    </body>
+</html>
