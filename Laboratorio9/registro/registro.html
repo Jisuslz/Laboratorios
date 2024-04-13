@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Registro JS</title>
+    </head>
+    <body>
+        <h1>Registrese a esta super pagina que no hace nada</h1>
+        <img src="imagen_reg.avif" />
+
+        <form action="">
+            nombre: <input type="text" name="nombre" id="nombre" onkeypress="onNombreKeyPress(this);"/> <br>
+            Fecha de nacimiento <input type="date" name="fechaNacimiento"> <br>
+            Genero <input type="radio" name="genero" value="m"/> Masculino 
+            <input type="radio" name="genero" value="f"> Femenino <br>
+            Lugar de nacimiento <select name="lugarDeNacimiento">
+                <option value="man">Manizales</option>
+                <option value="bog">Bogota</option>
+                <option value="med">Medellin</option>
+            </select> <br>
+            Password <input type="password" name="password" />
+            Password confirmation <input type="password" name="passwordConfirmation" /> <br>
+            Color que mas le gusta <input type="color" name="colorQueMasLeGusta"> <br>
+            <input type="checkbox" name="aceptoTerminoYCondiciones"> Acepto terminos y condiciones
+            <br>
+            
+            
+        </form>
+        <button onclick="registrarse()">Registrarse</button>
+
+        <script type="text/JavaScript">
+            function  registrarse() {
+                let nombreElement = document.getElementById('nombre');
+                if(nombreElement.value == ''){
+                    nombreElement.style.background = 'red';
+                    nombreElement.focus();
+                    alert('Por favor ingrese el nombre.');
+                }
+                console.log({nombreElement});
+            }
+            
+            function onNombreKeyPress(nombreElement) {
+                nombreElement.style.background = 'none';
+            }
+        </script>
+    </body>
+</html>
