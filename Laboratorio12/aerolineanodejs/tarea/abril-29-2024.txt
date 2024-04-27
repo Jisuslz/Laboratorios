@@ -1,0 +1,13 @@
+Tarea:
+
+De cada uno de sus proyectos, escoger un caso de uso, y van a
+realizar el backend que se conecte a la base de datos, con Express + NodeJS + SQL
+en una base de datos MySQL.
+
+Este ejercicio debe realizarse como lo hicimos en clase.
+
+Fecha de entrega, subir a GitHub: Lunes 29 de abril de 2024, maximo
+a las 8:00 P.M.
+
+Deben adjuntar al repositorio de GitHub, fotos de la pantalla
+mostrando que funciono.

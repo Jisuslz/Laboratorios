@@ -1,0 +1,2 @@
+1. Los queries del taller anterior, debe asegurarlos, utilziando sentencias parametrizadas
+Fecha maxima de de subida a GitHub: 01 de abril

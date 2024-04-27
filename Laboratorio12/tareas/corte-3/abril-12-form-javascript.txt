@@ -1,0 +1,16 @@
+Crear una pagina web con un formulario que tenga diferentes tipos de 
+input:
+1. Text
+2. Password
+3. Select
+4. Radio
+5. Checkbox
+6. Botones
+
+Van a realizar la pagina interactiva. Ideas:
+1. Password: Hacer que los password coincidan
+2. Radio: Que el usuario seleccione al menos un genero
+3. Checkbox: El usuario debe aceptar "Terminos y condiciones"
+4. Averiguar para que sirve innerHTML y van a mostrar los errores con innerHTML
+5. Si todos los datos estan bien, cambiar la imagen por una imagen de bienvenida
+6. Iventarse otras cosas para agregarle interactividad a la pagina

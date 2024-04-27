@@ -1,0 +1,17 @@
+NOTA: Sin tildes por teclado en ingles.
+
+Crear una aplicacion WEB con el modelo cliente-servidor. Que relice
+lo siguiente: 
+
+Un formulario web que solicite:
+- Usuario
+- Clave
+- Fecha de nacimiento
+- Genero (m-f)
+
+Aplicar las buenas practicas vistas en clase.
+
+Parametros de entrega:
+- Individual
+- Crear un repositorio en GitHub
+- Fecha maxima de entrega: 22 de febrero del 2024.

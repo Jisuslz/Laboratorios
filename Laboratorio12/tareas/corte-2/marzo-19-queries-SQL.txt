@@ -1,0 +1,2 @@
+Generar al menos 3 paginas con interfaces de usuario
+que se integren con busquedas SQL de diferente indole
