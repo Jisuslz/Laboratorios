@@ -109,7 +109,7 @@ En este ajuste, he cambiado los marcadores de posición de la consulta preparada
 
 ```
 
-9. Sesiones sin expiración  toker de session cookies.
+9. Sesiones no caducan en cierto periodo de tiempo.
 ![alt text](Anexos/9.png)
 
 10. Transmisión no cifrada de datos con HTTP en lugar de HTTPS.
@@ -140,7 +140,7 @@ La diferencia principal entre las dos opciones radica en el nivel de control y c
 ```
 
 14. Falta de sanitización de datos recibidos de formularios. Validaciones de JavaScript inseguras con innerHTML.
-```
+```md
 
 1. **Validación del lado del cliente solamente**: Un atacante puede fácilmente evitar las validaciones del lado del cliente manipulando el código fuente en el navegador o utilizando herramientas como el Inspector de elementos para modificar los valores de los campos del formulario. Por ejemplo, un atacante podría enviar datos maliciosos o vacíos directamente al servidor sin ser validados por el cliente.
 
@@ -155,7 +155,7 @@ La diferencia principal entre las dos opciones radica en el nivel de control y c
 
 ```
 
-```
+```Js
 <!-- Campo de nombre -->
 <script>
     document.getElementById('nombre').value = ''; // Campo vacío
