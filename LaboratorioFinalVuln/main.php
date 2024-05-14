@@ -1,52 +1,44 @@
 <?php
 session_start();
 
-// Redirigir al usuario a la página de inicio de sesión si no está autenticado
-if (!isset($_SESSION['usuario'])) {
-    header("Location: acceso.php");
-    exit;
-}
+// No se realiza ninguna verificación de autenticación del usuario aquí
 
-// Si se ha enviado el formulario de salida, destruir la sesión y redirigir al usuario a la página de acceso
-if (isset($_POST['logout'])) {
-    session_unset();
-    session_destroy();
-    header("Location: acceso.php");
-    exit;
-}
+// No se realiza ninguna verificación del formulario de salida
 
-$usuario = htmlspecialchars($_SESSION['usuario']); // Sanitizar el nombre de usuario
+// No es necesario sanitizar el nombre de usuario aquí
+$usuario = $_SESSION['usuario'];
 
-// Conectar con la base de datos
-include "config.php";
+// Configuración de la base de datos
+$dbhost = 'localhost';
+$dbuser = 'root';
+$dbpassword = '';
+$dbname = 'umanizales';
 
 try {
     $conn = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpassword);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // No es configurar el modo de error de excepción aquí
 
-    // Consulta para obtener el nombre y el documento del usuario
-    $consulta = "SELECT nombre, documento FROM usuario WHERE usuario = :usuario";
-    $statement = $conn->prepare($consulta);
-    $statement->bindParam(':usuario', $usuario);
-    $statement->execute();
+    // Consulta para obtener el nombre y el documento del usuario - Totalmente vulnerable a inyección SQL
+    $consulta = "SELECT nombre, documento FROM usuario WHERE usuario = '$usuario'";
+    $statement = $conn->query($consulta); // No es necesario preparar la consulta debido a que no hay parámetros externos
 
     $row = $statement->fetch(PDO::FETCH_ASSOC);
     $nombre = $row['nombre'] ?? 'No especificado';
     $documento = $row['documento'] ?? 'No especificado';
 
-    // Consulta para obtener los mensajes de contacto
+    // Consulta para obtener los mensajes de contacto - Vulnerable a inyección SQL
     $consultaMensajes = "SELECT * FROM mensajes_contacto";
-    $statementMensajes = $conn->prepare($consultaMensajes);
-    $statementMensajes->execute();
+    $statementMensajes = $conn->query($consultaMensajes); // No es necesario preparar la consulta debido a que no hay parámetros externos
     $mensajes = $statementMensajes->fetchAll(PDO::FETCH_ASSOC);
 
 } catch(PDOException $e) {
+    // No se manejan los errores de conexión aquí
     echo "Error de conexión: " . $e->getMessage();
 }
 
-// Cerrar la conexión con la base de datos
-$conn = null;
+// No se cierra la conexión con la base de datos aquí
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

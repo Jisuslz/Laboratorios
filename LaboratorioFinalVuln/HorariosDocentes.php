@@ -2,11 +2,6 @@
     // Iniciar sesión
     session_start();
 
-    // Redirigir al usuario a la página de inicio de sesión si no está autenticado
-    if (!isset($_SESSION['usuario'])) {
-        header("Location: acceso.php");
-        exit;
-    }
 ?>
 <!DOCTYPE html>
 <html>

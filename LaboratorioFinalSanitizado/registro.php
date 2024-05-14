@@ -7,11 +7,19 @@ if (
     && isset($_POST["usuario"])
     && isset($_POST["contraseña"])
 ) {
-    // Sanitizar los datos recibidos del formulario
-    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
-    $documento = filter_input(INPUT_POST, 'documento', FILTER_SANITIZE_STRING);
-    $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
-    $contraseña = filter_input(INPUT_POST, 'contraseña', FILTER_SANITIZE_STRING);
+    $allowedTags = [];
+
+    function sanitizeWithAllowedTags($input) {
+        global $allowedTags;
+        
+        return strip_tags($input, '<' . implode('><', $allowedTags) . '>');
+    }
+
+    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_CALLBACK, ['options' => 'sanitizeWithAllowedTags']);
+    $documento = filter_input(INPUT_POST, 'documento', FILTER_CALLBACK, ['options' => 'sanitizeWithAllowedTags']);
+    $usuario = filter_input(INPUT_POST, 'usuario', FILTER_CALLBACK, ['options' => 'sanitizeWithAllowedTags']);
+    $contraseña = filter_input(INPUT_POST, 'contraseña', FILTER_CALLBACK, ['options' => 'sanitizeWithAllowedTags']);
+
 
     // Validar la contraseña
     if (

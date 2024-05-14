@@ -1,11 +1,21 @@
 <?php
 // Verifica si se recibieron datos del formulario
 if (isset($_POST['nombre'], $_POST['email'], $_POST['telefono'], $_POST['mensaje'])) {
+    
+    // Lista blanca de etiquetas HTML seguras
+    $allowedTags = ['p', 'br', 'strong', 'em', 'a', 'h1','h2'];
+
+    // Función de sanitización personalizada para utilizar con filter_input
+    function sanitizeWithAllowedTags($input) {
+        global $allowedTags;
+        return strip_tags($input, '<' . implode('><', $allowedTags) . '>');
+    }
+
     // Recibe los datos del formulario y los sanitiza
-    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
+    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_CALLBACK, ['options' => 'sanitizeWithAllowedTags']);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $telefono = filter_input(INPUT_POST, 'telefono', FILTER_SANITIZE_STRING);
-    $mensaje = filter_input(INPUT_POST, 'mensaje', FILTER_SANITIZE_STRING);
+    $mensaje = filter_input(INPUT_POST, 'mensaje', FILTER_CALLBACK, ['options' => 'sanitizeWithAllowedTags']);
 
     // Conexión a la base de datos
     include "config.php";

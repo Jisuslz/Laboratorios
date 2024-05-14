@@ -1,39 +1,34 @@
 <?php
 // Verifica si se recibieron datos del formulario
 if (isset($_POST['nombre'], $_POST['email'], $_POST['telefono'], $_POST['mensaje'])) {
-    // Recibe los datos del formulario y los sanitiza
-    $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $telefono = filter_input(INPUT_POST, 'telefono', FILTER_SANITIZE_STRING);
-    $mensaje = filter_input(INPUT_POST, 'mensaje', FILTER_SANITIZE_STRING);
+    // Recibe los datos del formulario
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
+    $telefono = $_POST['telefono'];
+    $mensaje = $_POST['mensaje'];
 
     // Conexión a la base de datos
-    include "config.php";
+    // Configuración de la base de datos
+    $dbhost = 'localhost';
+    $dbuser = 'root';
+    $dbpassword = '';
+    $dbname = 'umanizales';
 
     try {
         // Conexión a la base de datos
         $conn = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpassword);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // Prepara la consulta SQL para insertar los datos en la tabla
-        $sql = "INSERT INTO mensajes_contacto (nombre, email, telefono, mensaje) VALUES (:nombre, :email, :telefono, :mensaje)";
-        $statement = $conn->prepare($sql);
         
-        // Bind parameters
-        $statement->bindParam(':nombre', $nombre);
-        $statement->bindParam(':email', $email);
-        $statement->bindParam(':telefono', $telefono);
-        $statement->bindParam(':mensaje', $mensaje);
-
+        // Prepara la consulta SQL para insertar los datos en la tabla
+        $sql = "INSERT INTO mensajes_contacto (nombre, email, telefono, mensaje) VALUES ('$nombre', '$email', '$telefono', '$mensaje')";
+        
         // Ejecuta la consulta
-        $statement->execute();
+        $conn->exec($sql);
 
         // Redirige al usuario a una página de confirmación
         header('Location: contacto.html');
         exit();
     } catch(PDOException $e) {
-        // Registra el error en un registro interno y muestra un mensaje genérico al usuario
-        error_log("Error al insertar el mensaje: " . $e->getMessage());
+        // Muestra un mensaje genérico al usuario
         echo "Ocurrió un error al enviar el mensaje. Por favor, inténtalo más tarde.";
     }
 

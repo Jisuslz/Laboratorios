@@ -30,6 +30,15 @@ if (isset($_POST['logout'])) {
 
 $usuario = htmlspecialchars($_SESSION['usuario']); // Sanitizar el nombre de usuario
 
+// Obtener la dirección IP del usuario
+$ip_usuario = $_SERVER['REMOTE_ADDR'];
+
+// Obtener la hora exacta de inicio de sesión
+$hora_inicio_sesion = date('Y-m-d H:i:s');
+
+// Obtener el agente de usuario del cliente
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
 // Conectar con la base de datos
 include "config.php";
 
@@ -73,7 +82,7 @@ session_set_cookie_params([
 
 // Regenerar el ID de sesión para prevenir ataques de session fixation
 session_regenerate_id(true);
-echo "ID de sesión regenerado: " . session_id(); // Mostrar el nuevo ID de sesión
+//echo "ID de sesión regenerado: " . session_id(); // Mostrar el nuevo ID de sesión
 // Esta implementación asume que estás utilizando HTTPS en tu sitio web para proteger adecuadamente la cookie de sesión.
 ?>
 
@@ -168,6 +177,10 @@ echo "ID de sesión regenerado: " . session_id(); // Mostrar el nuevo ID de sesi
     <div class="mensaje">
         <form method="post">
             <h1>Bienvenido, <?php echo $usuario; ?>!</h1>
+            <p>Dirección IP: <?php echo $ip_usuario; ?></p>
+            <p>Hora de inicio de sesión: <?php echo $hora_inicio_sesion; ?></p>
+            
+            
             <p>Has iniciado sesión correctamente.</p>
             <div class="details">
                 <p>Nombre: <?php echo $nombre; ?></p>

@@ -10,7 +10,11 @@
 ?>
 <?php
 // Conectar a la base de datos
-include "config.php";
+$dbhost = 'localhost';
+$dbuser = 'root';
+$dbpassword = '';
+$dbname = 'umanizales';
+
 
 try {
     $conexion = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpassword);

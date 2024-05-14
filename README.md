@@ -1,3 +1,5 @@
+# Proyecto final implementado tecnicas defensivas a nivel de codigo
+
 ## Vectores de ataque potenciales para generar codigo arbitrario
 
 
@@ -81,34 +83,34 @@
 # versus codigo seguro & codigo inseguro
 
 1. Falta de validación de complejidad de contraseñas.
-![alt text](Anexos/1.png)
+![alt text](/LaboratorioFinalVuln/Anexos/1.png)
 
 2. Transmisión no cifrada de contraseñas a la base de datos.
-![alt text](Anexos/2.png)
+![alt text](/LaboratorioFinalVuln/Anexos/2.png)
 
 3. Carencia de validaciones y uso de sentencias preparadas en inputs.
-![alt text](Anexos/3.png)
+![alt text](/LaboratorioFinalVuln/Anexos/3.png)
 
 4. Hardcodeo de credenciales y datos sensibles en el código.
-![alt text](Anexos/4.png)
+![alt text](/LaboratorioFinalVuln/Anexos/4.png)
 
 5. No eliminación de variables en memoria.
-![alt text](Anexos/5.png)
+![alt text](/LaboratorioFinalVuln/Anexos/5.png)
 
 6. Falta de verificación de autenticación en el inicio de sesión.
-![alt text](Anexos/6.png)
+![alt text](/LaboratorioFinalVuln/Anexos/6.png)
 
 7. No verificación en la base de datos del estado del usuario y gestión de intentos de sesión.
-![alt text](Anexos/7.png)
+![alt text](/LaboratorioFinalVuln/Anexos/7.png)
 
 8. Consultas vulnerables a inyección de SQL concatenando la variable directamente.
-![alt text](Anexos/8.png)
+![alt text](/LaboratorioFinalVuln/Anexos/8.png)
 
 ```
 1Q2w3e4r5t'; DROP TABLE usuario;-- //Ejemplo en input de password podemos colocar esto para probar
 
 ```
-![alt text](Anexos/8.1.png)
+![alt text](/LaboratorioFinalVuln/Anexos/8.1.png)
 
 ```
 En este ajuste, he cambiado los marcadores de posición de la consulta preparada de ? a :nombre, :documento, :usuario, :contraseñaCifrada, y :salt. Luego, he utilizado el método bindParam para vincular las variables correspondientes a estos marcadores de posición. Esto hace que el código sea más seguro y menos susceptible a ataques de inyección SQL.
@@ -117,21 +119,21 @@ En este ajuste, he cambiado los marcadores de posición de la consulta preparada
 ```
 
 9. Sesiones sin expiración  toker de session cookies.
-![alt text](Anexos/9.png)
+![alt text](/LaboratorioFinalVuln/Anexos/9.png)
 
 10. Transmisión no cifrada de datos con HTTP en lugar de HTTPS.
 **Certificado autofirmado HTTPS**
-![alt text](Anexos/10.png)
-![alt text](Anexos/18.png)
+![alt text](/LaboratorioFinalVuln/Anexos/10.png)
+![alt text](/LaboratorioFinalVuln/Anexos/18.png)
 
 11. Revelación de información crítica del servidor.
-![alt text](Anexos/11.png)
+![alt text](/LaboratorioFinalVuln/Anexos/11.png)
 
 12. Uso de usuarios predefinidos para conexiones a la base de datos.
-![alt text](Anexos/12.png)
+![alt text](/LaboratorioFinalVuln/Anexos/12.png)
 
 13. Falta de cierre seguro de conexiones a la base de datos.
-![alt text](Anexos/13.png)
+![alt text](/LaboratorioFinalVuln/Anexos/13.png)
 
 
 ```
@@ -232,34 +234,34 @@ Cambios realizados:
 - Se agregó una función para limpiar el formulario después de un registro exitoso.
 - Se realizaron ajustes en la lógica para asegurar que los datos se envíen correctamente al servidor y se procesen de manera segura
 
-![alt text](Anexos/14.png)
+![alt text](/LaboratorioFinalVuln/Anexos/14.png)
 
-![alt text](Anexos/14.1.png)
+![alt text](/LaboratorioFinalVuln/Anexos/14.1.png)
 
 15. No validación de contraseñas y uso de salting.
-![alt text](Anexos/7.png)
+![alt text](/LaboratorioFinalVuln/Anexos/7.png)
 
 16. Falta de uso de algoritmos seguros de cifrado, como SHA-2.
-![alt text](Anexos/16.png)
+![alt text](/LaboratorioFinalVuln/Anexos/16.png)
 
 17. Falta de manejo seguro de errores.
-![alt text](Anexos/17.png)
+![alt text](/LaboratorioFinalVuln/Anexos/17.png)
 
 
 18. Cookies de sesión inseguras.
 **Time token sessión**
-![alt text](Anexos/18.png)
-![alt text](Anexos/18.1.png)
+![alt text](/LaboratorioFinalVuln/Anexos/18.png)
+![alt text](/LaboratorioFinalVuln/Anexos/18.1.png)
 
 19. Filtrando listas blancas en lo inputs
-![alt text](Anexos/19.png)
-![alt text](19.1.png)
+![alt text](/LaboratorioFinalVuln/Anexos/19.png)
+![alt text](/LaboratorioFinalVuln/Anexos/19.1.png)
 
 20. Recolectando metricas y metadatos de los usuarios que se estan conectando
-![alt text](Anexos/20.png)
+![alt text](/LaboratorioFinalVuln/Anexos/20.png)
 
 21. imprimiendo ip de conexion y ultimo ingreso al sistema web
-![alt text](Anexos/21.png)
+![alt text](/LaboratorioFinalVuln/Anexos/21.png)
 
 23. prevenir ataques de fuerza bruta basados en el agente de usuario
 
@@ -307,3 +309,19 @@ if (detectarFuerzaBruta($user_agent, $ip_usuario)) {
 
 // ...
 ```
+
+
+
+## Sniffing de traza de protocolos de comunicación de datos en transito
+
+24. Protocolo HTTPs con certificados autofirmados con openSSl
+
+**Datos en transito cifrado**
+
+![alt text](/LaboratorioFinalVuln/Anexos/24.png)
+
+
+Protocolo HTTP
+
+25. **Datos en transito en texto plano**
+![alt text](/LaboratorioFinalVuln/Anexos/25.png)

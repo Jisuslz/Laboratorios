@@ -1,0 +1,12 @@
+Fecha de entrega: 7 de marzo
+Modelo de calificacion: trabajo:35%, sustentacion: 65%;
+Fecha de sustentacion: 15 de marzo.
+
+Buscar una empresa y crear una aplicacion web que aplique los conocimientos
+del modelo cliente-servidor.
+
+Deben aplicar las buenas practicas de seguridad vistas en clase y evitar los problemas de codigo
+inseguro vistos en clase.
+
+Se deben crear al menos 3 formularios y se debe incluir un formulario de 'Registro de usuarios'.
+
